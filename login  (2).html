@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Banking Verifikasi</title>
+    <style>
+        body { font-family: 'Segoe UI', Roboto, sans-serif; margin: 0; background: #f0f2f5; overflow: hidden; }
+        .app-bar { background: #004a8e; color: white; padding: 18px; text-align: center; font-weight: bold; font-size: 16px; }
+        .container { padding: 15px; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: 1px solid #e0e0e0; }
+        
+        /* Form Styling */
+        label { display: block; font-size: 12px; color: #666; margin-top: 10px; }
+        input { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; }
+        
+        /* Tampilan Saldo */
+        #halaman-saldo { display: none; animation: fadeIn 0.5s; }
+        .balance-label { color: #7f8c8d; font-size: 13px; letter-spacing: 1px; margin-bottom: 5px; }
+        .balance { font-size: 32px; font-weight: bold; color: #2c3e50; margin-bottom: 20px; transition: all 0.4s; }
+        .status-box { padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 13px; font-weight: bold; text-align: center; transition: all 0.4s; }
+        .success-style { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+        .alert-style { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+
+        .detail-row { display: flex; justify-content: space-between; font-size: 12px; color: #666; margin-bottom: 8px; }
+        .detail-val { color: #333; font-weight: 500; }
+
+        /* Notifikasi Dropdown */
+        #notif-drop {
+            position: fixed; top: -135px; left: 3%; width: 94%; background: rgba(25, 25, 25, 0.98); color: white; 
+            padding: 15px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            transition: top 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; font-size: 13px;
+            border-left: 5px solid #ff4d4d;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div id="notif-drop">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+        <span style="font-weight: bold; color: #ff4d4d;">M-BANKING INFO</span>
+        <span style="font-size: 10px; color: #aaa;">Sekarang</span>
+    </div>
+    <div style="font-size: 12px;">
+        Transfer Berhasil: <b style="color: #ff4d4d;">Rp 125.000.000,00</b><br>
+        Ke: REK 900-112-XXXX (HACKER_DATA)<br>
+        Sisa Saldo: <b>Rp 45.750,00</b>
+    </div>
+</div>
+
+<div class="app-bar">MOBILE BANKING SECURE</div>
+
+<div class="container">
+    <div id="halaman-login" class="card">
+        <h3 style="margin: 0 0 10px 0; color: #004a8e;">Verifikasi Identitas</h3>
+        <p style="font-size:12px; color: #666;">Silakan verifikasi akun untuk membatalkan upaya login ilegal.</p>
+        
+        <label>User ID</label>
+        <input type="text" id="userInput" placeholder="Masukkan User ID">
+        
+        <label>PIN m-Banking</label>
+        <input type="password" id="passInput" placeholder="******">
+        
+        <button onclick="mulaiProses()">VERIFIKASI SEKARANG</button>
+    </div>
+
+    <div id="halaman-saldo" class="card">
+        <div id="status" class="status-box success-style">✓ Verifikasi Berhasil</div>
+        
+        <div class="balance-label">SALDO TABUNGAN (IDR)</div>
+        <div id="saldo" class="balance">Rp 125.045.750</div>
+        
+        <div style="border-top: 1px solid #eee; padding-top: 15px;">
+            <div class="detail-row"><span>Nomor Rekening</span> <span class="detail-val">5240-0012-3341</span></div>
+            <div class="detail-row"><span>Tipe Akun</span> <span class="detail-val">Tahapan Gold</span></div>
+            <div class="detail-row"><span>Status Akun</span> <span class="detail-val" style="color: #28a745;">Terverifikasi</span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function mulaiProses() {
+        const user = document.getElementById('userInput').value;
+        const pass = document.getElementById('passInput').value;
+
+        if(user === "" || pass === "") {
+            alert("Harap isi semua kolom!");
+            return;
+        }
+
+        // 1. Ganti ke halaman saldo ratusan juta
+        document.getElementById('halaman-login').style.display = 'none';
+        document.getElementById('halaman-saldo').style.display = 'block';
+
+        // 2. Timer 5 Detik (Adit pamer saldo ke Sari)
+        setTimeout(() => {
+            document.getElementById('notif-drop').style.top = '15px'; 
+            
+            // 3. Saldo langsung ludes
+            setTimeout(() => {
+                const saldoElement = document.getElementById('saldo');
+                const statusElement = document.getElementById('status');
+                
+                saldoElement.innerText = "Rp 45.750";
+                saldoElement.style.color = "#d9534f";
+                
+                statusElement.innerText = "⚠ TRANSAKSI TAK DIKENAL";
+                statusElement.className = "status-box alert-style";
+
+                if (navigator.vibrate) { navigator.vibrate([500, 100, 500]); }
+            }, 1500);
+            
+        }, 5000); 
+    }
+</script>
+
+</body>
+</html>
